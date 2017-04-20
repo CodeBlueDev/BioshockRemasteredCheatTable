@@ -99,14 +99,15 @@ unregistersymbol(Pawn)
 unregistersymbol(PlayerController)
 unregistersymbol(LocalPlayer)
 
-dealloc(Hooks)
-
 unregistersymbol(PawnHook_AOB)
 unregistersymbol(LocalPlayerHook_AOB)
+
+dealloc(Hooks)
       </AssemblerScript>
       <CheatEntries>
         <CheatEntry>
           <ID>10</ID>
+          <Options moHideChildren="1"/>
           <Description>"Infinite Health"</Description>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>
@@ -116,19 +117,28 @@ unregistersymbol(LocalPlayerHook_AOB)
   Date   : 2017-04-19
   Author : CodeBlue
 
-  This script gives the player infinite health.
+  This script gives the player and ally entity, if any, infinite health.
+  The script can also be configured to perform one hit kills.
 }
 [ENABLE]
 
 aobscanmodule(UnlimitedHealth_AOB,BioshockHD.exe,F3 0F 11 86 7C 05 00 00 F3)
+registersymbol(UnlimitedHealth_AOB)
+
 alloc(UnlimitedHealthHook,$100)
 
 label(UnlimitedHealth)
 registersymbol(UnlimitedHealth)
 
+label(OneHitKill)
+registersymbol(OneHitKill)
+
 label(UnlimitedHealth_return)
 
 UnlimitedHealthHook:
+  OneHitKill:
+    db 1
+
   UnlimitedHealth:
     cmp esi, [PlayerController+450]
     je FriendlyHealth
@@ -141,7 +151,16 @@ UnlimitedHealthHook:
     jmp UnlimitedHealth_return
 
   EnemyHealth:
+    cmp [OneHitKill], 1
+    jge OneHitKillCode
+    jmp InitialCode
+
+  OneHitKillCode:
     movss [esi+57C], xmm1
+    jmp UnlimitedHealth_return
+
+  InitialCode:
+    movss [esi+57C], xmm0
     jmp UnlimitedHealth_return
 
   UnlimitedHealth_AOB:
@@ -157,10 +176,22 @@ UnlimitedHealthHook:
 UnlimitedHealth_AOB:
   db F3 0F 11 86 7C 05 00 00
 
+unregistersymbol(OneHitKill)
+
 unregistersymbol(UnlimitedHealth)
 
 dealloc(UnlimitedHealthHook)
+
+unregistersymbol(UnlimitedHealth_AOB)
           </AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+                <ID>11</ID>
+                <Description>"One Hit Kill"</Description>
+                <VariableType>byte</VariableType>
+                <Address>OneHitKill</Address>
+            </CheatEntry>
+          </CheatEntries>
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
@@ -266,6 +297,36 @@ dealloc(UnlimitedHealthHook)
         <Byte>00</Byte>
         <Byte>02</Byte>
         <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Unknown Move Value Into EVE</Description>
+      <Address>105E21C1</Address>
+      <ModuleName>BioshockHD.exe</ModuleName>
+      <ModuleNameOffset>221C1</ModuleNameOffset>
+      <Before>
+        <Byte>77</Byte>
+        <Byte>03</Byte>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>C2</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>86</Byte>
+        <Byte>F8</Byte>
+        <Byte>0A</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>45</Byte>
+        <Byte>08</Byte>
       </After>
     </CodeEntry>
   </CheatCodes>
