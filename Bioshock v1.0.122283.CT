@@ -193,6 +193,101 @@ unregistersymbol(UnlimitedHealth_AOB)
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"Infinite EVE"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>
+{
+  Game   : BioshockHD.exe
+  Version: v1.0.122283
+  Date   : 2017-04-19
+  Author : CodeBlue
+  This script gives the player infinite EVE.
+}
+[ENABLE]
+
+aobscanmodule(UnlimitedPlasmidUses_AOB,BioshockHD.exe,F3 0F 11 86 F8 0A 00 00 F3 0F 10 45 08 0F 2E C1 9F F6 C4 44 0F 8B 8D)
+registersymbol(UnlimitedPlasmidUses_AOB)
+
+aobscanmodule(UnlimitedEve_AOB,BioshockHD.exe,F3 0F 11 86 F8 0A 00 00 F3 0F 10 45 08 0F 2E C1 9F F6 C4 44 0F 8B 37)
+registersymbol(UnlimitedEve_AOB)
+
+alloc(UnlimitedEveHook,$100)
+
+label(UnlimitedEve)
+registersymbol(UnlimitedEve)
+
+label(UnlimitedEveReturn)
+registersymbol(UnlimitedEveReturn)
+
+label(UnlimitedPlasmidUses_return)
+
+label(UnlimitedEve_return)
+
+UnlimitedEveHook:
+  UnlimitedEveReturn:
+    dd 0
+
+  UnlimitedPlasmidUses:
+    push UnlimitedPlasmidUses_return
+    jmp CompareEntity
+    
+  UnlimitedEve:
+    push UnlimitedEve_return
+    jmp CompareEntity
+
+  CompareEntity:
+    cmp esi, [PlayerController+450]
+    je FriendlyEve
+    cmp esi, [Pawn]
+    je FriendlyEve
+    jmp EnemyEve
+
+  FriendlyEve:
+    movss [esi+AF8], xmm2
+    jmp Return
+
+  EnemyEve:
+    movss [esi+AF8], xmm1
+    jmp Return
+
+  Return:
+    ret
+
+  UnlimitedPlasmidUses_AOB:
+    jmp UnlimitedPlasmidUses
+    nop
+    nop
+    nop
+    UnlimitedPlasmidUses_return:
+
+  UnlimitedEve_AOB:
+    jmp UnlimitedEve
+    nop
+    nop
+    nop
+    UnlimitedEve_return:
+
+[DISABLE]
+
+UnlimitedPlasmidUses_AOB:
+  db F3 0F 11 86 F8 0A 00 00
+
+UnlimitedEve_AOB:
+  db F3 0F 11 86 F8 0A 00 00
+
+unregistersymbol(UnlimitedEveReturn)
+
+unregistersymbol(UnlimitedEve)
+
+unregistersymbol(UnlimitedPlasmidUses_AOB)
+
+unregistersymbol(UnlimitedEve_AOB)
+
+dealloc(UnlimitedEveHook)
+          </AssemblerScript>
+        </CheatEntry>
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
@@ -299,36 +394,15 @@ unregistersymbol(UnlimitedHealth_AOB)
         <Byte>00</Byte>
       </After>
     </CodeEntry>
-    <CodeEntry>
-      <Description>Unknown Move Value Into EVE</Description>
-      <Address>105E21C1</Address>
-      <ModuleName>BioshockHD.exe</ModuleName>
-      <ModuleNameOffset>221C1</ModuleNameOffset>
-      <Before>
-        <Byte>77</Byte>
-        <Byte>03</Byte>
-        <Byte>0F</Byte>
-        <Byte>28</Byte>
-        <Byte>C2</Byte>
-      </Before>
-      <Actual>
-        <Byte>F3</Byte>
-        <Byte>0F</Byte>
-        <Byte>11</Byte>
-        <Byte>86</Byte>
-        <Byte>F8</Byte>
-        <Byte>0A</Byte>
-        <Byte>00</Byte>
-        <Byte>00</Byte>
-      </Actual>
-      <After>
-        <Byte>F3</Byte>
-        <Byte>0F</Byte>
-        <Byte>10</Byte>
-        <Byte>45</Byte>
-        <Byte>08</Byte>
-      </After>
-    </CodeEntry>
   </CheatCodes>
   <UserdefinedSymbols/>
+  <Comments>
+Bioshock Remastered Version 1.0.122283
+
+Offset 057C from Player Struct - Current Health
+Offset 0774 from Player Struct - Maximum Health
+
+Offset AF8 from Player Struct - Current Eve
+Offset AFC from Player Struct - Maximum Eve
+  </Comments>
 </CheatTable>
