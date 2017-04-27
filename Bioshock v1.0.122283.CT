@@ -288,6 +288,38 @@ unregistersymbol(UnlimitedEve_AOB)
 dealloc(UnlimitedEveHook)
           </AssemblerScript>
         </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"Infinite Money"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>
+{ 
+  Game   : BioshockHD.exe
+  Version: v1.0.122283
+  Date   : 2017-04-20
+  Author : CodeBlue
+
+  This script gives the player infinite money by not subtracting money when
+  items are purchased.
+}
+
+[ENABLE]
+
+aobscanmodule(UnlimitedMoney_AOB,BioshockHD.exe,29 86 EC 0A 00 00)
+alloc(UnlimitedMoneyHook,$100)
+
+UnlimitedMoney_AOB:
+  db 90 90 90 90 90 90
+
+[DISABLE]
+
+UnlimitedMoney_AOB:
+  db 29 86 EC 0A 00 00
+
+unregistersymbol(UnlimitedMoney_AOB)
+dealloc(MoneyTrainerCode)
+          </AssemblerScript>
+        </CheatEntry>
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
@@ -350,6 +382,26 @@ dealloc(UnlimitedEveHook)
                     <Offset>450</Offset>
                   </Offsets>
                 </CheatEntry>
+                <CheatEntry>
+                  <ID>14</ID>
+                  <Description>"Current Money"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>PlayerController</Address>
+                  <Offsets>
+                    <Offset>AEC</Offset>
+                    <Offset>450</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>15</ID>
+                  <Description>"Max Money"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>PlayerController</Address>
+                  <Offsets>
+                    <Offset>AF0</Offset>
+                    <Offset>450</Offset>
+                  </Offsets>
+                </CheatEntry>
               </CheatEntries>
             </CheatEntry>
           </CheatEntries>
@@ -404,5 +456,8 @@ Offset 0774 from Player Struct - Maximum Health
 
 Offset AF8 from Player Struct - Current Eve
 Offset AFC from Player Struct - Maximum Eve
+
+Offset AEC from Player Struct - Current Money
+Offset AF0 from Player Struct - Maximum Money
   </Comments>
 </CheatTable>

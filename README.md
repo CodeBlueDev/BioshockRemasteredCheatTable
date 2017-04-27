@@ -8,9 +8,10 @@ Cheat Engine Cheat Table for Bioshock Remastered v1.0.122283.
     - [X] Maximum Health
     - [X] Current EVE
     - [X] Maximum EVE
-    - [ ] Ammo
-    - [ ] Current $
-    - [ ] Maximum $
+    - [ ] Chamber Ammo
+    - [ ] Total Weapon Ammo
+    - [X] Current $
+    - [X] Maximum $
     - [ ] Current ADAM
     - [ ] Maximum ADAM (*)
 
@@ -22,7 +23,7 @@ Cheat Engine Cheat Table for Bioshock Remastered v1.0.122283.
     - [ ] Add "Save Little Sister" flag.
     - [ ] Check if Entity receiving damage is Little Sister.
 
-- [ ] "Infinite EVE"
+- [X] "Infinite EVE"
     - [X] EVE does not decrease when Player uses Plasmids.
     - [X] EVE does not decrease when Player consumes items.
 
@@ -30,8 +31,8 @@ Cheat Engine Cheat Table for Bioshock Remastered v1.0.122283.
     - [ ] Chamber Ammo does not decrease.
     - [ ] Total Ammo does not decrease.
 
-- [ ] "Infinite Money"
-    - [ ] Money amount does not decrease when Player makes purchases.
+- [X] "Infinite Money"
+    - [X] Money amount does not decrease when Player makes purchases.
 
 - [ ] "Infinite ADAM"
     - [ ] ADAM amount does not decrease when Player makes purchases.
