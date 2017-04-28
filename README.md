@@ -12,8 +12,7 @@ Cheat Engine Cheat Table for Bioshock Remastered v1.0.122283.
     - [ ] Total Weapon Ammo
     - [X] Current $
     - [X] Maximum $
-    - [ ] Current ADAM
-    - [ ] Maximum ADAM (*)
+    - [X] Current ADAM
 
 - [ ] "Infinite Health"
     - [X] Player takes no damage.
@@ -34,8 +33,8 @@ Cheat Engine Cheat Table for Bioshock Remastered v1.0.122283.
 - [X] "Infinite Money"
     - [X] Money amount does not decrease when Player makes purchases.
 
-- [ ] "Infinite ADAM"
-    - [ ] ADAM amount does not decrease when Player makes purchases.
+- [X] "Infinite ADAM"
+    - [X] ADAM amount does not decrease when Player makes purchases.
 
 - [ ] "Infinite Items"
     - [ ] Infinite "Health Kit"
