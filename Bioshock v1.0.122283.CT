@@ -367,7 +367,7 @@ unregistersymbol(UnlimitedAdam_AOB)
 }
 [ENABLE]
 
-aobscanmodule(UnlimitedAmmo_AOB,BioshockHD.exe,89 4A 54 8B 15 4C 1D 51 11)
+aobscanmodule(UnlimitedAmmo_AOB,BioshockHD.exe,89 4A 54 8B 15 ?? ?? ?? ??)
 
 UnlimitedAmmo_AOB:
   db 90 90 90
